@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import { createPortal } from 'react-dom';
 import { ModalWindow, ModalContent } from './Modal.styled';
 import PropTypes from 'prop-types';
@@ -6,17 +6,20 @@ import PropTypes from 'prop-types';
 const modalRoot = document.querySelector('#modal-root')
 
 export const Modal = ({ closeModal, modalIsOpened, children }) => {
-    useEffect(() => {
-        window.addEventListener('keydown', toggleModal);
-        return () => {
-            window.removeEventListener('keydown', toggleModal);
-        };
-    }, [modalIsOpened]);
+    const toggleModalCallback = useCallback(
+        (e) => {
+            if (e.code !== 'Escape') return;
+            closeModal();
+        },
+        [closeModal],
+    );
 
-    const toggleModal = e => {
-        if (e.code !== 'Escape') return;
-        closeModal();
-    };
+    useEffect(() => {
+        window.addEventListener('keydown', toggleModalCallback);
+        return () => {
+            window.removeEventListener('keydown', toggleModalCallback);
+        };
+    }, [modalIsOpened, toggleModalCallback]);
 
     const onClick = e => {
         if (e.target === e.currentTarget) closeModal();

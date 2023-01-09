@@ -15,7 +15,7 @@ const ContactsView = () => {
   useEffect(() => {
     if (!user) return;
     dispatch(fetchContacts());
-  }, []);
+  }, [dispatch, user]);
 
   const onFilterSearch = e => {
     dispatch(setFilter(e.target.value));
