@@ -15,12 +15,12 @@ export const AppBar = () => {
   return (
     <Header>
       <Wrapper>
-        {user?<> <HeaderLink to='/phonebook/home'>Main</HeaderLink>
-        <HeaderLink to='/phonebook/contacts'>Contacts</HeaderLink></>: <div></div>}
+        {user?<> <HeaderLink to='//home'>Main</HeaderLink>
+        <HeaderLink to='//contacts'>Contacts</HeaderLink></>: <div></div>}
       </Wrapper>
       <Wrapper>
-        {user?<><b>User: {user.name}; </b><b>email:{user.email}</b><SignOutButton onClick={onLogOut}>Sign Out</SignOutButton></>:<><HeaderLink to='/phonebook/register'>Register</HeaderLink>
-      <HeaderLink to='/phonebook/login'>LogIn</HeaderLink></>}
+        {user?<><b>User: {user.name}; </b><b>email:{user.email}</b><SignOutButton onClick={onLogOut}>Sign Out</SignOutButton></>:<><HeaderLink to='//register'>Register</HeaderLink>
+      <HeaderLink to='//login'>LogIn</HeaderLink></>}
       </Wrapper>
     </Header>
   )

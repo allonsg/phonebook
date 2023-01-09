@@ -33,5 +33,5 @@ const ContactsView = () => {
   );
 }
 
-export default WithAuthRedirect(ContactsView, '/phonebook/login');
+export default WithAuthRedirect(ContactsView, '/login');
 
