@@ -12,7 +12,7 @@ export const ModalForm = ({prevContact, handleModal}) => {
   useEffect(() => {
    setName(prevContact.name);
    setNumber(prevContact.number);
-  }, [])
+  }, [prevContact.name, prevContact.number])
   
 
   const handleChange = ({ target: { name, value } }) => {
