@@ -16,4 +16,4 @@ const RegisterView = () => {
 }
 
 
-export default WithNoAuthRedirect(RegisterView, '/contacts');
+export default WithNoAuthRedirect(RegisterView, '/phonebook/contacts');

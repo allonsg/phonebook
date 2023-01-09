@@ -20,7 +20,7 @@ export const App = () => {
   return (
     <>
       <Routes>
-        <Route exact path="/" element={<Layout />}>
+        <Route exact path="phonebook" element={<Layout />}>
            <Route index element={<Navigate to="home" />} />
           <Route exact path="home" element={<LazyHomeView />} />
           <Route exact path="contacts" element={<LazyContactsView/>} />

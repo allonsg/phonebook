@@ -15,4 +15,4 @@ const LoginView = () => {
     );
 }
 
-export default WithNoAuthRedirect(LoginView, '/contacts');
+export default WithNoAuthRedirect(LoginView, '/phonebook/contacts');
