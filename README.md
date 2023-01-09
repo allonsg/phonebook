@@ -1,2 +1,2 @@
 # Phonebook
- SImple project, just for redux practice
+ SImple project, just for redux practise
