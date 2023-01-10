@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkphonebook=self.webpackChunkphonebook||[]).push([[133],{9625:function(n,o,e){var t=e(1413),c=e(7496),u=e(9434),r=e(7689),s=e(184);o.Z=function(n,o){return function(e){return(0,u.v9)(c.PR)?(0,s.jsx)(n,(0,t.Z)({},e)):(0,s.jsx)(r.Fg,{to:o})}}},2133:function(n,o,e){e.r(o);var t=e(7496),c=e(9625),u=e(9434),r=e(184);o.default=(0,c.Z)((function(){return(0,u.v9)(t.PR)?(0,r.jsx)("h1",{children:"Welcome to HomePage "}):(0,r.jsx)("h1",{children:"Log In to get access to your contacts"})}),"/login")}}]);
+//# sourceMappingURL=133.3c048dc2.chunk.js.map
