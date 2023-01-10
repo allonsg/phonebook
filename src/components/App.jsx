@@ -4,6 +4,8 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { getAuth } from "../redux/userSlice";
 import Layout from "views/Layout";
 import { GlobalStyle } from "./App.styled";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
 
 const LazyRegisterView = lazy(() => import('views/RegisterView/RegisterView'));
 const LazyLoginView = lazy(() => import('views/LoginView/LoginView'));
@@ -28,7 +30,8 @@ export const App = () => {
           <Route exact path="register" element={<LazyRegisterView/>} />
         </Route>
       </Routes>
-    <GlobalStyle/>
+      <GlobalStyle />
+      <ToastContainer />
     </>
   );
 };

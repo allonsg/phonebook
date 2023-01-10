@@ -5,7 +5,6 @@ import {
   editContactRequest,
   getContactsRequest,
 } from 'services/api';
-// import contactList from '../../data/contacts.json';
 
 export const fetchContacts = createAsyncThunk(
   'contacts/fetchContacts',
@@ -75,6 +74,7 @@ export const contactsSlice = createSlice({
     },
   },
   extraReducers: builder => {
+    //Fetch Contact
     builder.addCase(fetchContacts.pending, state => {
       state.isLoading = true;
     });
@@ -86,6 +86,7 @@ export const contactsSlice = createSlice({
       state.isLoading = false;
       state.error = payload;
     });
+    //Add Contact
     builder.addCase(addContact.pending, state => {
       state.isLoading = true;
     });
@@ -97,6 +98,7 @@ export const contactsSlice = createSlice({
       state.isLoading = false;
       state.error = payload;
     });
+    //Remove Contact
     builder.addCase(removeContact.pending, state => {
       state.isLoading = true;
     });

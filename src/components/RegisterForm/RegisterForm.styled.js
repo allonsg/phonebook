@@ -8,9 +8,11 @@ export const Form = styled.form`
 `;
 
 export const Label = styled.label`
-  display: flex;
-  flex-display: column;
-  gap: 5px;
+  display: block;
+  height: 66px;
+  font-weight: bold;
+  width: 300px;
+  color: ${props => (props.passwordInvalid ? 'red' : 'black')};
 `;
 
 export const Button = styled.button`
@@ -25,8 +27,19 @@ export const Button = styled.button`
   cursor: pointer;
 
   &:disabled {
+    cursor: default;
     border: 1px solid #999999;
     background-color: #cccccc;
     color: #666666;
   }
+`;
+
+export const Input = styled.input`
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 6px;
+  margin-bottom: 16px;
 `;
