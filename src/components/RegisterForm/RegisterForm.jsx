@@ -1,7 +1,7 @@
 import { signUp } from "redux/userSlice";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Form, Label, Button, Input, StyledAlert, Message, Letter, Capital, Number, Length } from "./RegisterForm.styled";
+import { Form, Label, Button, Input} from "./RegisterForm.styled";
 import PropTypes from 'prop-types';
 
 export const RegisterForm = ({ isLoading }) => {

@@ -62,7 +62,6 @@ export const userSlice = createSlice({
   initialState: {
     user: null,
     token: null,
-    // isLoggedIn: false,
     isLoading: false,
     error: null,
   },
