@@ -1,4 +1,5 @@
 import axios from 'axios';
+import token from 'common/token';
 
 const $publicHost = axios.create({
   baseURL: 'https://connections-api.herokuapp.com',
@@ -15,7 +16,7 @@ const $privateHost = axios.create({
 });
 
 const authInterceptor = config => {
-  config.headers['Authorization'] = localStorage.getItem('token');
+  config.headers['Authorization'] = token;
   return config;
 };
 

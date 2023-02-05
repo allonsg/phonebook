@@ -5,6 +5,8 @@ import { getAuth } from "../redux/userSlice";
 import Layout from "views/Layout";
 import { GlobalStyle } from "./App.styled";
 import { ToastContainer } from 'react-toastify';
+import token from 'common/token';
+import tokenA from 'common'
 import 'react-toastify/dist/ReactToastify.min.css';
 
 const LazyRegisterView = lazy(() => import('views/RegisterView/RegisterView'));
@@ -15,9 +17,11 @@ const LazyContactsView = lazy(() => import('views/ContactsView/ContactsView'));
 export const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    if (!localStorage.getItem('token')) return;
+    if (!token) return;
     dispatch(getAuth());
   }, [dispatch]);
+  
+  console.log(tokenA);
   
   return (
     <>
