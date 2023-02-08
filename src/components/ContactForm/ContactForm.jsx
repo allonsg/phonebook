@@ -21,6 +21,7 @@ export const ContactForm = () => {
       return;
     };
 
+
     const obj = {
       name: name.value,
       number: number.value.toString(),

@@ -1,7 +1,7 @@
 import { login } from "redux/userSlice";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Button, Form, Input, Label } from "./LoginForm.styled"
+import { AnimatedBorder, Button, Form, FormHeader, Input, Label, LoginBox, LoginIcon, UserBox } from "./LoginForm.styled"
 import PropTypes from 'prop-types';
 
 
@@ -47,22 +47,29 @@ export const LoginForm = ({ isLoading }) => {
             password,
         }
         dispatch(login(formData));
-        setEmail('');
-        setPassword('');
+        // setEmail('');
+        // setPassword('');
     };
 
     const pass = password.length < 8;
 
-  return (
-    <Form onSubmit={handleSubmit} autoComplete='off'>
-                <Label>Email
-                    <Input type="email" name='email' value={email} placeholder='example@gmail.com' onChange={handleChange} required={true}/>
-                </Label>
-                <Label passwordInvalid={passwordInvalid}>Password
-                    <Input type="password" name='password' value={password} title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" onChange={handleChange} onFocus={onPassFocus} onBlur={()=> setPasswordInvalid(false)} min={8} max={21} placeholder='Enter min 8 symbols' required={true}/>
-                </Label>
-                <Button type="submit" disabled={isLoading || !email || pass}>LogIn</Button>
+    return (<LoginBox>
+        <FormHeader>
+            <LoginIcon/>
+            Log In
+        </FormHeader>
+        <Form onSubmit={handleSubmit} autoComplete='off'>
+            <UserBox>
+                    <Input type="email" name='email' value={email} onChange={handleChange} required={true}/>
+                <Label emailText={!!email}>Email</Label>
+            </UserBox>
+            <UserBox>
+                    <Input type="password" name='password' value={password} title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" onChange={handleChange} onFocus={onPassFocus} onBlur={()=> setPasswordInvalid(false)} min={8} max={21} required={true}/>
+                <Label passwordInvalid={passwordInvalid} passText={!!password}>Password</Label>
+            </UserBox>
+                <Button type="submit" disabled={isLoading || !email || pass}>LogIn<AnimatedBorder disabled ={isLoading || !email || pass}></AnimatedBorder></Button>
             </Form>
+  </LoginBox>
   )
 }
 

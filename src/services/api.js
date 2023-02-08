@@ -1,5 +1,11 @@
 import axios from 'axios';
-import token from 'common/token';
+import token from 'common';
+
+let secondaryToken = null;
+
+const setToken = data => {
+  secondaryToken = data;
+};
 
 const $publicHost = axios.create({
   baseURL: 'https://connections-api.herokuapp.com',
@@ -16,7 +22,7 @@ const $privateHost = axios.create({
 });
 
 const authInterceptor = config => {
-  config.headers['Authorization'] = token;
+  config.headers['Authorization'] = secondaryToken || token;
   return config;
 };
 
@@ -24,11 +30,13 @@ $privateHost.interceptors.request.use(authInterceptor);
 
 export const signUpRequest = async formData => {
   const { data } = await $publicHost.post('/users/signup', formData);
+  setToken(data.token);
   return data;
 };
 
 export const loginRequest = async formData => {
   const { data } = await $publicHost.post('/users/login', formData);
+  setToken(data.token);
   return data;
 };
 
