@@ -46,7 +46,7 @@ export const editContact = createAsyncThunk(
   'contacts/editContact',
   async (obj, { rejectWithValue }) => {
     try {
-      const data = await editContactRequest(obj.formData, obj.id);
+      const data = await editContactRequest(obj);
       return data;
     } catch (error) {
       return rejectWithValue(error);

@@ -2,16 +2,21 @@ import { LoginForm } from "components/LoginForm/LoginForm";
 import {getIsLoading} from "redux/userSlice";
 import WithNoAuthRedirect from "HOC/WithNoAuthRedurect";
 import { useSelector } from "react-redux";
-import { Wrap } from "./LoginView.styled";
+import { LoginBlock, Wrap } from "./LoginView.styled";
+import { Helmet } from "react-helmet-async";
 
 
 const LoginView = () => {
     const isLoading = useSelector(getIsLoading);
     return (
-        <Wrap>
-            <h1>Login Page</h1>
+        <>
+        <Helmet>
+        <title>Authorization</title>
+            </Helmet>
+            <LoginBlock>
             <LoginForm isLoading={isLoading}/>
-        </Wrap>
+            </LoginBlock>
+        </>
     );
 }
 

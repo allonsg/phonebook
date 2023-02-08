@@ -12,6 +12,7 @@ import {
 } from 'redux-persist';
 import { contactsSlice } from './contactsSlice';
 import { userSlice } from './userSlice';
+import { themeReducer } from './themeSlice';
 
 const middleware = [
   ...getDefaultMiddleware({
@@ -31,6 +32,7 @@ export const store = configureStore({
   reducer: {
     contacts: contactsSlice.reducer,
     user: persistReducer(userPersistConfig, userSlice.reducer),
+    theme: themeReducer,
   },
   middleware,
 });
