@@ -2,8 +2,8 @@ import { LoginForm } from "components/LoginForm/LoginForm";
 import {getIsLoading} from "redux/userSlice";
 import WithNoAuthRedirect from "HOC/WithNoAuthRedurect";
 import { useSelector } from "react-redux";
-import { LoginBlock, Wrap } from "./LoginView.styled";
 import { Helmet } from "react-helmet-async";
+import { FormBlock } from "common/formStyles/formStyles";
 
 
 const LoginView = () => {
@@ -13,9 +13,9 @@ const LoginView = () => {
         <Helmet>
         <title>Authorization</title>
             </Helmet>
-            <LoginBlock>
+            <FormBlock>
             <LoginForm isLoading={isLoading}/>
-            </LoginBlock>
+            </FormBlock>
         </>
     );
 }

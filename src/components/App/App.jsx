@@ -5,7 +5,7 @@ import { getAuth } from "redux/userSlice";
 import Layout from "views/Layout/Layout";
 import { GlobalStyle } from "./App.styled";
 import { ToastContainer } from 'react-toastify';
-import token from 'common';
+import token from 'common/token';
 import 'react-toastify/dist/ReactToastify.min.css';
 import { ThemeProvider } from 'styled-components';
 import * as themeObj from 'theme';

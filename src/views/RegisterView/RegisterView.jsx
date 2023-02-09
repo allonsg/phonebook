@@ -2,8 +2,8 @@ import { useSelector } from "react-redux";
 import {getIsLoading } from "redux/userSlice";
 import { RegisterForm } from "components/RegisterForm/RegisterForm";
 import WithNoAuthRedirect from "HOC/WithNoAuthRedurect";
-import { Title, Wrap } from "./RegisterView.styled";
 import { Helmet } from "react-helmet-async";
+import { FormBlock } from "common/formStyles/formStyles";
 
 const RegisterView = () => {
     const isLoading = useSelector(getIsLoading);
@@ -11,11 +11,10 @@ const RegisterView = () => {
     return (<>
         <Helmet>
         <title>Registration</title>
-      </Helmet>
-        <Wrap>
-            <Title>Register Page</Title>
+        </Helmet>
+        <FormBlock>
             <RegisterForm isLoading={isLoading} />
-        </Wrap>
+        </FormBlock>
     </>
     );
 }

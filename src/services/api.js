@@ -1,5 +1,5 @@
 import axios from 'axios';
-import token from 'common';
+import token from 'common/token';
 
 let secondaryToken = null;
 
