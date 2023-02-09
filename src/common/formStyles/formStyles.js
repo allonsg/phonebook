@@ -148,3 +148,10 @@ export const AnimatedBorder = styled.span`
       infinite;
   }
 `;
+
+export const FormBlock = styled.div`
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;

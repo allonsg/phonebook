@@ -1,24 +1,34 @@
 import { login } from "redux/userSlice";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { AnimatedBorder, Button, Form, FormHeader, Input, Label, LoginBox, LoginIcon, UserBox } from "./LoginForm.styled"
+import { AnimatedBorder, Button, Form, FormHeader, Input, Label, LoginBox, LoginIcon, UserBox } from "common/formStyles/formStyles"
 import PropTypes from 'prop-types';
+
 
 
 export const LoginForm = ({ isLoading }) => {
     const dispatch = useDispatch();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [passwordInvalid, setPasswordInvalid] = useState(false);
+    const [passwordIsValid, setPasswordIsValid] = useState(false);
+    const [emailIsValid, setEmailIsValid] = useState(false);
+    
+    const handleChange = ({ target: { name, value, validity } }) => {
 
-    const handleChange = ({ target: { name, value } }) => {
-
-         if (name === 'password') {
-            if (!value.match(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/)) {
-            setPasswordInvalid(true);
+        if (name === 'password') {
+             if (validity.valid) {
+            setPasswordIsValid(true);
+            }
+             else {
+                setPasswordIsValid(false);
+            }
+        }
+         if (name === 'email') {
+            if (validity.valid) {
+            setEmailIsValid(true);
             }
             else {
-                setPasswordInvalid(false);
+                setEmailIsValid(false);
             }
         }
         
@@ -32,13 +42,6 @@ export const LoginForm = ({ isLoading }) => {
         };
     };
 
-    const onPassFocus = e => {
-        if (e.target.value.length < 8 && e.target.value.length >= 1) {
-            setPasswordInvalid(true);
-        } else {
-            setPasswordInvalid(false);
-        }
-    }
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -47,11 +50,9 @@ export const LoginForm = ({ isLoading }) => {
             password,
         }
         dispatch(login(formData));
-        // setEmail('');
-        // setPassword('');
     };
 
-    const pass = password.length < 8;
+    const validation = isLoading || !emailIsValid || !passwordIsValid;
 
     return (<LoginBox>
         <FormHeader>
@@ -64,10 +65,10 @@ export const LoginForm = ({ isLoading }) => {
                 <Label emailText={!!email}>Email</Label>
             </UserBox>
             <UserBox>
-                    <Input type="password" name='password' value={password} title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" onChange={handleChange} onFocus={onPassFocus} onBlur={()=> setPasswordInvalid(false)} min={8} max={21} required={true}/>
-                <Label passwordInvalid={passwordInvalid} passText={!!password}>Password</Label>
+                    <Input type="password" name='password' value={password} title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" onChange={handleChange} min={8} max={21} required={true}/>
+                <Label passText={!!password}>Password</Label>
             </UserBox>
-                <Button type="submit" disabled={isLoading || !email || pass}>LogIn<AnimatedBorder disabled ={isLoading || !email || pass}></AnimatedBorder></Button>
+                <Button type="submit" disabled={validation}>LogIn<AnimatedBorder disabled ={validation}></AnimatedBorder></Button>
             </Form>
   </LoginBox>
   )
