@@ -1,4 +1,9 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Container = styled.div`
-padding: 40px;`;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 40px;
+  width: 100%;
+`;

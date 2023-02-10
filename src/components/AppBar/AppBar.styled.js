@@ -1,4 +1,9 @@
-import { BsMoonStars, BsSun } from 'react-icons/bs';
+import {
+  BsMoonStars,
+  BsSun,
+  BsArrowRightSquare,
+  BsPencil,
+} from 'react-icons/bs';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -55,13 +60,57 @@ export const HeaderLink = styled(NavLink)`
   }
 `;
 
-export const SignOutButton = styled.button`
+export const HeaderButton = styled.button`
   cursor: pointer;
-  text-decoration: none;
-  color: black;
+  color: ${props => props.theme.color};
+  font-family: Roboto, Helvetica, Arial, sans-serif;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  letter-spacing: 0.0075em;
+  font-weight: 600;
+  border: 1px solid transparent;
+  padding: 5px;
+  border-radius: 5px;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
 
-  :hover {
-    color: red;
+  @media screen and (max-width: 768px) {
+    font-size: ${props => props.theme.mobile.headerFS};
+  }
+
+  :hover:not(.active),
+  :focus-visible:not(.active) {
+    color: ${props => props.theme.hoverColor};
+    border-color: ${props => props.theme.hoverColor};
+  }
+
+  &:hover svg {
+    fill: ${props => props.theme.hoverColor};
+  }
+`;
+
+export const LoginIcon = styled(BsArrowRightSquare)`
+  fill: ${props => props.theme.color};
+  width: 22px;
+  height: 22px;
+  margin-left: 5px;
+
+  @media screen and (max-width: 768px) {
+    width: 18px;
+    height: 18px;
+  }
+`;
+
+export const AddContactIcon = styled(BsPencil)`
+  fill: ${props => props.theme.color};
+  width: 20px;
+  height: 20px;
+  margin-left: 5px;
+
+  @media screen and (max-width: 768px) {
+    width: 18px;
+    height: 18px;
   }
 `;
 
@@ -110,6 +159,18 @@ export const HomeButton = styled(NavLink)`
   letter-spacing: 0.0075em;
   font-weight: 600;
   ${props => props.theme.appBar};
+
+  @media screen and (max-width: 768px) {
+    font-size: ${props => props.theme.mobile.headerFS};
+  }
+`;
+
+export const WelcomeUser = styled.b`
+  color: ${props => props.theme.color};
+  font-size: 1.2rem;
+  line-height: 1.6;
+  letter-spacing: 0.0075em;
+  font-weight: 600;
 
   @media screen and (max-width: 768px) {
     font-size: ${props => props.theme.mobile.headerFS};

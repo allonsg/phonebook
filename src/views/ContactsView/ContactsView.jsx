@@ -27,7 +27,8 @@ const ContactsView = () => {
         <title>My Contacts</title>
       </Helmet>
     <Container>
-      {!!user?<><Phonebook />
+      {!!user ? <>
+        {/* <Phonebook /> */}
       <Contacts
         onFilterSearch={onFilterSearch}
         filter={filter}
