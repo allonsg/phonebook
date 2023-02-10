@@ -30,7 +30,7 @@ export const App = () => {
     dispatch(getAuth());
   }, [dispatch]);
 
-  const theme = changeTheme ? themeObj.light : themeObj.dark;
+  const theme = changeTheme ? themeObj.dark : themeObj.light;
 
   return (
     <>

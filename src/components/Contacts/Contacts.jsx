@@ -1,12 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
 import {deleteContact, getContacts, removeContact } from '../../redux/contactsSlice';
-import { FiltredContacts } from './FiltredContacts/FiltredContacts';
-import PropTypes from 'prop-types';
-import { Label, Input } from '../components.styled';
-import { List } from "./Contacts.styled";
+import { ContactListItem } from './ContactListItem/ContactListItem.jsx';
+import { FilterInput, FiltertInputWrapper, List } from "./Contacts.styled";
 import { useState } from "react";
 import { Modal } from "components/Modal/Modal";
 import { ModalForm } from "components/ModalForm/ModalForm";
+import PropTypes from 'prop-types';
 
 export const Contacts = ({ onFilterSearch, filter}) => {
   const contactList = useSelector(getContacts);
@@ -30,30 +29,29 @@ export const Contacts = ({ onFilterSearch, filter}) => {
   }
 
   const filtredContacts = contactList.filter(({ name }) =>
-    name.toLowerCase().startsWith(filter.toLowerCase())
+    name.toLowerCase().startsWith(filter.toLowerCase().trim())
   );
 
   const list = filtredContacts.map(({ name, id, number }) => (
-    <FiltredContacts key={id} name={name} id={id} number={number} onDelete={onDelete} onEdit={handleModal} />
+    <ContactListItem key={id} name={name} id={id} number={number} onDelete={onDelete} onEdit={handleModal} />
   ));
 
   return (
     <>
-      <h2>Contacts</h2>
-      <Label>
-        Find contacts by name
-        <Input
+      <FiltertInputWrapper>
+       <FilterInput
           type="text"
           name="filter"
-          pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-          title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
           onChange={onFilterSearch}
           value={filter}
+          autoComplete= 'off'
+          placeholder = 'Find contacts by name'
         />
-      </Label>
-      <List>
+      </FiltertInputWrapper>
+      {/* <FilterLabel>Find contacts by name</FilterLabel> */}
+      {/* <List>
         {list}
-      </List>
+      </List> */}
             {modalIsOpened && <Modal closeModal={handleModal} modalIsOpened = {modalIsOpened}>
         <ModalForm prevContact={editContact} handleModal={handleModal} />
       </Modal>}

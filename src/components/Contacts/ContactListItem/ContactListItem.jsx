@@ -1,9 +1,9 @@
 import { Button } from "components/components.styled";
-import { ContactItem } from "./FiltredContatcs.styled";
+import { ContactItem } from "./ContactListItem.styled";
 import PropTypes from 'prop-types';
 
 
-export const FiltredContacts = ({ name, number, onDelete, id, onEdit }) => {
+export const ContactListItem = ({ name, number, onDelete, id, onEdit }) => {
     return (
         <ContactItem>
             {name}: {number}
@@ -17,10 +17,9 @@ export const FiltredContacts = ({ name, number, onDelete, id, onEdit }) => {
     );
 };
 
-FiltredContacts.propTypes = {
+ContactListItem.propTypes = {
     name: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
     number: PropTypes.node.isRequired,
     onDelete: PropTypes.func.isRequired,
 };
-

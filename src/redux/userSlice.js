@@ -121,9 +121,9 @@ export const userSlice = createSlice({
       state.isLoading = false;
       state.error = payload;
       state.token = '';
-      toast.error('Your previous session time has been out', {
-        position: toast.POSITION.TOP_RIGHT,
-      });
+      // toast.error('Your previous session time has been out', {
+      //   position: toast.POSITION.TOP_RIGHT,
+      // });
     });
     // LogOut
     builder.addCase(logOut.pending, state => {

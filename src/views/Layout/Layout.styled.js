@@ -8,7 +8,9 @@ export const AppWrapper = styled.div`
 
 export const MainBlock = styled.main`
   position: relative;
-  padding: 100px 20px 0;
+  padding: ${props => (props.user ? '0' : '100px')} 20px 0;
+  display: flex;
+  justify-content: center;
 
   @media screen and (max-width: 768px) {
     padding-top: 10px;
