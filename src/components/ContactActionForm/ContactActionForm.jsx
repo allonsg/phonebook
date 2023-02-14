@@ -1,17 +1,18 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { editContact } from "redux/contactsSlice";
-import { Button, Form, Label } from "./ModalForm.styled"
+import { Form, UserBox } from "common/formStyles/formStyles";
+import { ContactActionBox, ContactButton, ContactHeader, ContactInput, ContactLabel } from "common/contactFormStyles/contactFormStyles";
 import PropTypes from 'prop-types';
 
-export const ModalForm = ({prevContact, handleModal}) => {
+export const ContactActionForm = ({ prevContact, handleModal }) => {
   const dispatch = useDispatch();
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
   useEffect(() => {
-   setName(prevContact.name);
-   setNumber(prevContact.number);
+    setName(prevContact.name);
+    setNumber(prevContact.number);
   }, [prevContact.name, prevContact.number])
   
 
@@ -46,19 +47,26 @@ export const ModalForm = ({prevContact, handleModal}) => {
     handleModal();
   };
   return (
-    <Form onSubmit={handleSubmit}>
-      <Label>Name:
-        <input type="name" name='name' value={name} onChange={handleChange} />
-      </Label>
-      <Label>Number:
-        <input type="text" name='number' value={number} onChange={handleChange} />
-      </Label>
-      <Button type="submit">Edit</Button>
-    </Form>
+    <ContactActionBox>
+      <ContactHeader>
+        Edit Contact
+      </ContactHeader>
+      <Form onSubmit={handleSubmit}>
+        <UserBox>
+          <ContactInput type="name" name='name' value={name} onChange={handleChange} />
+          <ContactLabel text={!!name}>Name</ContactLabel>
+        </UserBox>
+        <UserBox>
+          <ContactInput type="text" name='number' value={number} onChange={handleChange} />
+          <ContactLabel text={!!number}>Number</ContactLabel>
+        </UserBox>
+        <ContactButton type="submit">Edit</ContactButton>
+      </Form>
+    </ContactActionBox>
   );
 };
 
-ModalForm.propTypes = {
+ContactActionForm.propTypes = {
     prevContact: PropTypes.object.isRequired,
     handleModal: PropTypes.func.isRequired,
 };

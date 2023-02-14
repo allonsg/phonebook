@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import {deleteContact, getContacts, removeContact } from '../../redux/contactsSlice';
 import { ContactListItem } from './ContactListItem/ContactListItem.jsx';
-import { FilterInput, FiltertInputWrapper, List } from "./Contacts.styled";
+import { AddContactText, FilterInput, FiltertInputWrapper, List } from "./Contacts.styled";
 import { useState } from "react";
 import { Modal } from "components/Modal/Modal";
-import { ModalForm } from "components/ModalForm/ModalForm";
+import { ContactActionForm } from "components/ContactActionForm/ContactActionForm";
 import PropTypes from 'prop-types';
 
 export const Contacts = ({ onFilterSearch, filter}) => {
@@ -48,12 +48,11 @@ export const Contacts = ({ onFilterSearch, filter}) => {
           placeholder = 'Find contacts by name'
         />
       </FiltertInputWrapper>
-      {/* <FilterLabel>Find contacts by name</FilterLabel> */}
-      {/* <List>
-        {list}
-      </List> */}
+      <List>
+        {list.length> 0? list :<AddContactText>You have no contacts, so just add them!</AddContactText>}
+      </List>
             {modalIsOpened && <Modal closeModal={handleModal} modalIsOpened = {modalIsOpened}>
-        <ModalForm prevContact={editContact} handleModal={handleModal} />
+        <ContactActionForm prevContact={editContact} handleModal={handleModal} />
       </Modal>}
     </>
   );

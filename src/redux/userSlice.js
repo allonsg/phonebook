@@ -12,7 +12,6 @@ export const signUp = createAsyncThunk(
   async (formData, { rejectWithValue }) => {
     try {
       const userData = await signUpRequest(formData);
-      // userData?.token && localStorage.setItem('token', userData.token);
       return userData;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -25,7 +24,6 @@ export const login = createAsyncThunk(
   async (formData, { rejectWithValue }) => {
     try {
       const userData = await loginRequest(formData);
-      // userData?.token && localStorage.setItem('token', userData.token);
       return userData;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -50,7 +48,6 @@ export const logOut = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       await logOutRequest();
-      // localStorage.removeItem('token');
     } catch (error) {
       return rejectWithValue(error.message);
     }

@@ -65,7 +65,7 @@ export const deleteContactRequest = async id => {
   return data;
 };
 
-export const editContactRequest = async (contact, id) => {
+export const editContactRequest = async ({ id, formData: contact }) => {
   const { data } = await $privateHost.patch(`/contacts/${id}`, contact);
   return data;
 };
