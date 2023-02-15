@@ -5,17 +5,15 @@ import {
   logOutRequest,
   signUpRequest,
 } from 'services/api';
-import { toast } from 'react-toastify';
 
 export const signUp = createAsyncThunk(
   'user/signUp',
   async (formData, { rejectWithValue }) => {
     try {
       const userData = await signUpRequest(formData);
-      userData?.token && localStorage.setItem('token', userData.token);
       return userData;
     } catch (error) {
-      return rejectWithValue(error);
+      return rejectWithValue(error.message);
     }
   }
 );
@@ -25,10 +23,9 @@ export const login = createAsyncThunk(
   async (formData, { rejectWithValue }) => {
     try {
       const userData = await loginRequest(formData);
-      userData?.token && localStorage.setItem('token', userData.token);
       return userData;
     } catch (error) {
-      return rejectWithValue(error);
+      return rejectWithValue(error.message);
     }
   }
 );
@@ -40,7 +37,7 @@ export const getAuth = createAsyncThunk(
       const userData = await getAuthRequest();
       return userData;
     } catch (error) {
-      return rejectWithValue(error);
+      return rejectWithValue(error.message);
     }
   }
 );
@@ -50,9 +47,8 @@ export const logOut = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       await logOutRequest();
-      localStorage.removeItem('token');
     } catch (error) {
-      return rejectWithValue(error);
+      return rejectWithValue(error.message);
     }
   }
 );
@@ -61,8 +57,7 @@ export const userSlice = createSlice({
   name: 'user',
   initialState: {
     user: null,
-    token: null,
-    // isLoggedIn: false,
+    token: '',
     isLoading: false,
     error: null,
   },
@@ -80,17 +75,7 @@ export const userSlice = createSlice({
     });
     builder.addCase(signUp.rejected, (state, { payload }) => {
       state.isLoading = false;
-      state.error = payload.message;
-
-      if (payload.response.status === 400) {
-        return toast.error('User already created', {
-          position: toast.POSITION.TOP_RIGHT,
-        });
-      }
-
-      toast.error('Server error', {
-        position: toast.POSITION.TOP_RIGHT,
-      });
+      state.error = payload;
     });
     //Login
     builder.addCase(login.pending, state => {
@@ -104,10 +89,7 @@ export const userSlice = createSlice({
     });
     builder.addCase(login.rejected, (state, { payload }) => {
       state.isLoading = false;
-      state.error = payload.message;
-      toast.error(`${payload.message}`, {
-        position: toast.POSITION.TOP_RIGHT,
-      });
+      state.error = payload;
     });
     // Authorization
     builder.addCase(getAuth.pending, state => {
@@ -120,10 +102,8 @@ export const userSlice = createSlice({
     });
     builder.addCase(getAuth.rejected, (state, { payload }) => {
       state.isLoading = false;
-      state.error = payload.message;
-      toast.error(`${payload.message}`, {
-        position: toast.POSITION.TOP_RIGHT,
-      });
+      state.error = payload;
+      state.token = '';
     });
     // LogOut
     builder.addCase(logOut.pending, state => {
@@ -133,13 +113,11 @@ export const userSlice = createSlice({
     builder.addCase(logOut.fulfilled, state => {
       state.isLoading = false;
       state.user = null;
+      state.token = '';
     });
     builder.addCase(logOut.rejected, (state, { payload }) => {
       state.isLoading = false;
-      state.error = payload.message;
-      toast.error(`${payload.message}`, {
-        position: toast.POSITION.TOP_RIGHT,
-      });
+      state.error = payload;
     });
   },
 });

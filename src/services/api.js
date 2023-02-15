@@ -1,4 +1,11 @@
 import axios from 'axios';
+import token from 'common/token';
+
+let secondaryToken = null;
+
+const setToken = data => {
+  secondaryToken = data;
+};
 
 const $publicHost = axios.create({
   baseURL: 'https://connections-api.herokuapp.com',
@@ -15,7 +22,7 @@ const $privateHost = axios.create({
 });
 
 const authInterceptor = config => {
-  config.headers['Authorization'] = localStorage.getItem('token');
+  config.headers['Authorization'] = secondaryToken || token;
   return config;
 };
 
@@ -23,11 +30,13 @@ $privateHost.interceptors.request.use(authInterceptor);
 
 export const signUpRequest = async formData => {
   const { data } = await $publicHost.post('/users/signup', formData);
+  setToken(data.token);
   return data;
 };
 
 export const loginRequest = async formData => {
   const { data } = await $publicHost.post('/users/login', formData);
+  setToken(data.token);
   return data;
 };
 
@@ -56,7 +65,7 @@ export const deleteContactRequest = async id => {
   return data;
 };
 
-export const editContactRequest = async (contact, id) => {
+export const editContactRequest = async ({ id, formData: contact }) => {
   const { data } = await $privateHost.patch(`/contacts/${id}`, contact);
   return data;
 };

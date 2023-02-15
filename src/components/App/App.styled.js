@@ -19,6 +19,8 @@ html {
 }
 
   body {
+    position: relative;
     margin: 0;
+    background-color: ${props => props.theme.bgMain};
   }
 `;

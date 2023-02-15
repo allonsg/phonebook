@@ -1,25 +1,36 @@
 import { signUp } from "redux/userSlice";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Form, Label, Button, Input, StyledAlert, Message, Letter, Capital, Number, Length } from "./RegisterForm.styled";
+import { Form, Label, Button, Input, LoginBox, FormHeader, UserBox, AnimatedBorder, LoginIcon} from "common/formStyles/formStyles";
 import PropTypes from 'prop-types';
+import { toast } from "react-toastify";
 
 export const RegisterForm = ({ isLoading }) => {
     const dispatch = useDispatch();
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [passwordInvalid, setPasswordInvalid] = useState(false);
+    const [passwordIsValid, setPasswordIsValid] = useState(false);
+    const [emailIsValid, setEmailIsValid] = useState(false);
     
 
-    const handleChange = ({ target: { name, value } }) => {   
+    const handleChange = ({ target: { name, value, validity } }) => {
         
         if (name === 'password') {
-            if (!value.match(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/)) {
-            setPasswordInvalid(true);
+            if (validity.valid) {
+                setPasswordIsValid(true);
             }
             else {
-                setPasswordInvalid(false);
+                setPasswordIsValid(false);
+            }
+        }
+
+        if (name === 'email') {
+            if (validity.valid) {
+                setEmailIsValid(true);
+            }
+            else {
+                setEmailIsValid(false);
             }
         }
         
@@ -35,14 +46,6 @@ export const RegisterForm = ({ isLoading }) => {
         };
     };
 
-    const onPassFocus = e => {
-        if (e.target.value.length < 8 && e.target.value.length >= 1) {
-            setPasswordInvalid(true);
-        } else {
-            setPasswordInvalid(false);
-        }
-    }
-
     const handleSubmit = e => {
         e.preventDefault();
             
@@ -52,24 +55,47 @@ export const RegisterForm = ({ isLoading }) => {
             password,
         }
 
-        dispatch(signUp(formData));
+        dispatch(signUp(formData)).unwrap()
+            .then(() =>
+                toast.success('You are successfully logged in',
+                    {
+                        position: toast.POSITION.TOP_RIGHT
+                    }
+                ))
+            .catch(() =>
+                toast.error('Something went wrong...Try reloading the page and enter valid email',
+                    {
+                        position: toast.POSITION.TOP_RIGHT,
+                    }
+                ));
+    }
 
-        setName('');
-        setEmail('');
-        setPassword('');
-    };
+    const validation = isLoading || !emailIsValid || !passwordIsValid || !name;
 
-    const pass = password.length < 8;
 
     return (
-        <>
+        <LoginBox>
+            <FormHeader>
+                <LoginIcon />
+                Sign Up
+            </FormHeader>
             <Form onSubmit={handleSubmit} autoComplete='off'>
-                <Label> Name <Input type='text' name='name' value={name} onChange={handleChange} placeholder='Adam' required={true}/></Label>
-                <Label> Email <Input type='email' name='email' value={email} onChange={handleChange} placeholder='example@gmail.com' required={true}/></Label>
-                <Label passwordInvalid={passwordInvalid}> Password <Input type='password' title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" name='password' value={password} onFocus={onPassFocus} onBlur={()=> setPasswordInvalid(false)} onChange={handleChange} min={8} max={21} placeholder='Enter min 8 symbols' required={true}/></Label>
-                <Button type="submit" disabled={isLoading || !name || !email || pass}>Register</Button>
+                <UserBox>
+                    <Input type='text' name='name' value={name} onChange={handleChange}  required={true} />
+                    <Label> Name </Label>
+                </UserBox>
+                <UserBox>
+                    <Input type='email' name='email' value={email} onChange={handleChange} required={true} />
+                    <Label emailText={!!email}> Email </Label>
+                </UserBox>
+                <UserBox>
+                    <Input type='password' title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" name='password' value={password} onChange={handleChange} min={8} max={21} required={true} />
+                    <Label passText={!!password}> Password </Label>
+                </UserBox>
+
+                <Button type="submit" disabled={validation}>SignUp<AnimatedBorder disabled ={validation}></AnimatedBorder></Button>
             </Form>
-        </>
+        </LoginBox>
     )
 }
 

@@ -1,12 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
 import {deleteContact, getContacts, removeContact } from '../../redux/contactsSlice';
-import { FiltredContacts } from './FiltredContacts/FiltredContacts';
-import PropTypes from 'prop-types';
-import { Label, Input } from '../components.styled';
-import { List } from "./Contacts.styled";
+import { ContactListItem } from './ContactListItem/ContactListItem.jsx';
+import { AddContactText, FilterInput, FiltertInputWrapper, List } from "./Contacts.styled";
 import { useState } from "react";
 import { Modal } from "components/Modal/Modal";
-import { ModalForm } from "components/ModalForm/ModalForm";
+import { ContactActionForm } from "components/ContactActionForm/ContactActionForm";
+import { toast } from "react-toastify";
+import PropTypes from 'prop-types';
 
 export const Contacts = ({ onFilterSearch, filter}) => {
   const contactList = useSelector(getContacts);
@@ -14,7 +14,6 @@ export const Contacts = ({ onFilterSearch, filter}) => {
   const [modalIsOpened, setModalIsOpened] = useState(false);
   const [editContact, setEditContact] = useState({});
  
-
   const onDelete = id => {
     dispatch(removeContact(id));
     const updatedContacts = contactList.filter(
@@ -22,6 +21,10 @@ export const Contacts = ({ onFilterSearch, filter}) => {
     );
 
     dispatch(deleteContact(updatedContacts));
+
+    toast.success("Contact deleted!", {
+      position: toast.POSITION.TOP_RIGHT
+    });
   }
 
   const handleModal = (obj) => {
@@ -30,32 +33,38 @@ export const Contacts = ({ onFilterSearch, filter}) => {
   }
 
   const filtredContacts = contactList.filter(({ name }) =>
-    name.toLowerCase().startsWith(filter.toLowerCase())
+    name.toLowerCase().startsWith(filter.toLowerCase().trim())
   );
 
-  const list = filtredContacts.map(({ name, id, number }) => (
-    <FiltredContacts key={id} name={name} id={id} number={number} onDelete={onDelete} onEdit={handleModal} />
-  ));
+  const filtredList = filtredContacts.length > 0
+    ?
+    filtredContacts.map(({ name, id, number }) => (<ContactListItem key={id} name={name} id={id} number={number} onDelete={onDelete} onEdit={handleModal} /> )) 
+    :
+    contactList.length > 0? <AddContactText>You have no contacts with that name :(</AddContactText> : <AddContactText>You have no contacts, so just add them!</AddContactText>;
+
+  const list = contactList.length > 0
+    ?
+    contactList.map(({ name, id, number }) => (<ContactListItem key={id} name={name} id={id} number={number} onDelete={onDelete} onEdit={handleModal} /> ))
+    :
+    <AddContactText>You have no contacts, so just add them!</AddContactText>;
 
   return (
     <>
-      <h2>Contacts</h2>
-      <Label>
-        Find contacts by name
-        <Input
+      <FiltertInputWrapper>
+       <FilterInput
           type="text"
           name="filter"
-          pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-          title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
           onChange={onFilterSearch}
           value={filter}
+          autoComplete= 'off'
+          placeholder = 'Find contacts by name'
         />
-      </Label>
+      </FiltertInputWrapper>
       <List>
-        {list}
+        {filter? filtredList : list}
       </List>
             {modalIsOpened && <Modal closeModal={handleModal} modalIsOpened = {modalIsOpened}>
-        <ModalForm prevContact={editContact} handleModal={handleModal} />
+        <ContactActionForm prevContact={editContact} handleModal={handleModal} />
       </Modal>}
     </>
   );
