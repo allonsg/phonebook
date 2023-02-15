@@ -68,4 +68,5 @@ ContactListItem.propTypes = {
     id: PropTypes.string.isRequired,
     number: PropTypes.node.isRequired,
     onDelete: PropTypes.func.isRequired,
+    onEdit: PropTypes.func.isRequired,
 };

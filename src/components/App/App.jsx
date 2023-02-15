@@ -10,7 +10,6 @@ import 'react-toastify/dist/ReactToastify.min.css';
 import { ThemeProvider } from 'styled-components';
 import * as themeObj from 'theme';
 import { getTheme } from "redux/themeSlice";
-// import { useMediaQuery } from "react-responsive";
 import localTheme from "common/localTheme";
 
 const LazyRegisterView = lazy(() => import('views/RegisterView/RegisterView'));
@@ -19,10 +18,6 @@ const LazyHomeView = lazy(() => import('views/HomeView/HomeView'));
 const LazyContactsView = lazy(() => import('views/ContactsView/ContactsView'));
 
 export const App = () => {
-  // const isMobScreen = useMediaQuery({ query: '(max-width: 767.98px)' });
-  // const isTabScreen = useMediaQuery({ query: '(min-width: 768px)' });
-  // const isBeforeDescScreen = useMediaQuery({ query: '(max-width: 1279.98px)' });
-  // const isAfterDescScreen = useMediaQuery({ query: '(min-width: 1280px)' });
   const dispatch = useDispatch();
   const changeTheme = useSelector(getTheme);
   const [theme, setTheme] = useState(themeObj.light);

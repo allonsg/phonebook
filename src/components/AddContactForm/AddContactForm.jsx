@@ -3,8 +3,10 @@ import { addContact, getContacts } from 'redux/contactsSlice';
 import { Form, UserBox} from "common/formStyles/formStyles";
 import { ContactActionBox, ContactButton, ContactHeader, ContactInput, ContactLabel } from "common/contactFormStyles/contactFormStyles";
 import { useState } from 'react';
+import { toast } from 'react-toastify';
+import PropTypes from 'prop-types';
 
-export const ContactForm = () => {
+export const AddContactForm = ({handleModal}) => {
   const dispatch = useDispatch();
   const contacts = useSelector(getContacts);
   const [number, setNumber] = useState('');
@@ -26,11 +28,13 @@ export const ContactForm = () => {
 
     const { name, number } = e.target.elements;
     const existingContact = contacts.find(
-      contact => contact.name.toLowerCase().includes(name.value.toLowerCase())
+      contact => contact.name.toLowerCase() === name.value.toLowerCase() || contact.number === number.value
     );
 
     if (existingContact) {
-      alert(`${name.value} is already in contacts!`);
+      toast.error("The contact already exists!", {
+        position: toast.POSITION.TOP_RIGHT
+      });
       return;
     };
 
@@ -39,12 +43,16 @@ export const ContactForm = () => {
       number: number.value.toString(),
     };
 
-     dispatch(addContact(obj));
+    dispatch(addContact(obj));
 
     number.value = '';
     name.value = '';
+    handleModal();
+    toast.success("Contact created!", {
+      position: toast.POSITION.TOP_CENTER
+    });
   };
-console.log({number: !!number})
+
   return (
     <ContactActionBox>
       <ContactHeader>
@@ -78,4 +86,8 @@ console.log({number: !!number})
       </Form>
     </ContactActionBox>
   );
+};
+
+AddContactForm.propTypes = {
+    handleModal: PropTypes.func.isRequired,
 };

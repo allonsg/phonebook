@@ -5,7 +5,6 @@ import {
   logOutRequest,
   signUpRequest,
 } from 'services/api';
-import { toast } from 'react-toastify';
 
 export const signUp = createAsyncThunk(
   'user/signUp',
@@ -77,13 +76,6 @@ export const userSlice = createSlice({
     builder.addCase(signUp.rejected, (state, { payload }) => {
       state.isLoading = false;
       state.error = payload;
-
-      toast.error(
-        'Something went wrong...Try reloading the page and enter valid email',
-        {
-          position: toast.POSITION.TOP_RIGHT,
-        }
-      );
     });
     //Login
     builder.addCase(login.pending, state => {
@@ -98,12 +90,6 @@ export const userSlice = createSlice({
     builder.addCase(login.rejected, (state, { payload }) => {
       state.isLoading = false;
       state.error = payload;
-      toast.error(
-        'Something went wrong...Try reloading the page and enter valid email, password',
-        {
-          position: toast.POSITION.TOP_RIGHT,
-        }
-      );
     });
     // Authorization
     builder.addCase(getAuth.pending, state => {
@@ -118,9 +104,6 @@ export const userSlice = createSlice({
       state.isLoading = false;
       state.error = payload;
       state.token = '';
-      // toast.error('Your previous session time has been out', {
-      //   position: toast.POSITION.TOP_RIGHT,
-      // });
     });
     // LogOut
     builder.addCase(logOut.pending, state => {
@@ -135,10 +118,6 @@ export const userSlice = createSlice({
     builder.addCase(logOut.rejected, (state, { payload }) => {
       state.isLoading = false;
       state.error = payload;
-      // state.token = '';
-      toast.error(`${payload}`, {
-        position: toast.POSITION.TOP_RIGHT,
-      });
     });
   },
 });

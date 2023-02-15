@@ -1,9 +1,5 @@
-import {
-  BsMoonStars,
-  BsSun,
-  BsArrowRightSquare,
-  BsPencil,
-} from 'react-icons/bs';
+import { BsMoonStars, BsSun, BsArrowRightSquare } from 'react-icons/bs';
+import { AiOutlineUserAdd } from 'react-icons/ai';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -29,6 +25,7 @@ export const Wrapper = styled.div`
 
   @media screen and (max-width: 768px) {
     gap: 10px;
+    padding: 10px;
   }
 `;
 
@@ -92,38 +89,38 @@ export const HeaderButton = styled.button`
 
 export const LoginIcon = styled(BsArrowRightSquare)`
   fill: ${props => props.theme.color};
-  width: 22px;
-  height: 22px;
+  width: ${props => props.theme.svgSize};
+  height: ${props => props.theme.svgSize};
   margin-left: 5px;
 
   @media screen and (max-width: 768px) {
-    width: 18px;
-    height: 18px;
+    width: ${props => props.theme.mobile.mobilesvgSize};
+    height: ${props => props.theme.mobile.mobilesvgSize};
   }
 `;
 
-export const AddContactIcon = styled(BsPencil)`
+export const AddContactIcon = styled(AiOutlineUserAdd)`
   fill: ${props => props.theme.color};
-  width: 20px;
-  height: 20px;
+  width: ${props => props.theme.svgSize};
+  height: ${props => props.theme.svgSize};
   margin-left: 5px;
 
   @media screen and (max-width: 768px) {
-    width: 18px;
-    height: 18px;
+    width: ${props => props.theme.mobile.mobilesvgSize};
+    height: ${props => props.theme.mobile.mobilesvgSize};
   }
 `;
 
 export const SunThemButton = styled(BsSun)`
   cursor: pointer;
-  width: 21px;
-  height: 21px;
+  width: ${props => props.theme.svgSize};
+  height: ${props => props.theme.svgSize};
   user-select: none;
   fill: ${props => props.theme.color};
 
   @media screen and (max-width: 768px) {
-    width: ${props => props.theme.mobile.svgSize};
-    height: ${props => props.theme.mobile.svgSize};
+    width: ${props => props.theme.mobile.mobilesvgSize};
+    height: ${props => props.theme.mobile.mobilesvgSize};
   }
 
   :hover:not(.active),
@@ -134,14 +131,14 @@ export const SunThemButton = styled(BsSun)`
 
 export const MoonThemButton = styled(BsMoonStars)`
   cursor: pointer;
-  width: 21px;
-  height: 21px;
+  width: ${props => props.theme.svgSize};
+  height: ${props => props.theme.svgSize};
   user-select: none;
   fill: ${props => props.theme.color};
 
   @media screen and (max-width: 768px) {
-    width: ${props => props.theme.mobile.svgSize};
-    height: ${props => props.theme.mobile.svgSize};
+    width: ${props => props.theme.mobile.mobilesvgSize};
+    height: ${props => props.theme.mobile.mobilesvgSize};
   }
 
   :hover:not(.active),

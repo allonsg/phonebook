@@ -5,6 +5,7 @@ import { AddContactText, FilterInput, FiltertInputWrapper, List } from "./Contac
 import { useState } from "react";
 import { Modal } from "components/Modal/Modal";
 import { ContactActionForm } from "components/ContactActionForm/ContactActionForm";
+import { toast } from "react-toastify";
 import PropTypes from 'prop-types';
 
 export const Contacts = ({ onFilterSearch, filter}) => {
@@ -13,7 +14,6 @@ export const Contacts = ({ onFilterSearch, filter}) => {
   const [modalIsOpened, setModalIsOpened] = useState(false);
   const [editContact, setEditContact] = useState({});
  
-
   const onDelete = id => {
     dispatch(removeContact(id));
     const updatedContacts = contactList.filter(
@@ -21,6 +21,10 @@ export const Contacts = ({ onFilterSearch, filter}) => {
     );
 
     dispatch(deleteContact(updatedContacts));
+
+    toast.success("Contact deleted!", {
+      position: toast.POSITION.TOP_RIGHT
+    });
   }
 
   const handleModal = (obj) => {
@@ -32,9 +36,17 @@ export const Contacts = ({ onFilterSearch, filter}) => {
     name.toLowerCase().startsWith(filter.toLowerCase().trim())
   );
 
-  const list = filtredContacts.map(({ name, id, number }) => (
-    <ContactListItem key={id} name={name} id={id} number={number} onDelete={onDelete} onEdit={handleModal} />
-  ));
+  const filtredList = filtredContacts.length > 0
+    ?
+    filtredContacts.map(({ name, id, number }) => (<ContactListItem key={id} name={name} id={id} number={number} onDelete={onDelete} onEdit={handleModal} /> )) 
+    :
+    contactList.length > 0? <AddContactText>You have no contacts with that name :(</AddContactText> : <AddContactText>You have no contacts, so just add them!</AddContactText>;
+
+  const list = contactList.length > 0
+    ?
+    contactList.map(({ name, id, number }) => (<ContactListItem key={id} name={name} id={id} number={number} onDelete={onDelete} onEdit={handleModal} /> ))
+    :
+    <AddContactText>You have no contacts, so just add them!</AddContactText>;
 
   return (
     <>
@@ -49,7 +61,7 @@ export const Contacts = ({ onFilterSearch, filter}) => {
         />
       </FiltertInputWrapper>
       <List>
-        {list.length> 0? list :<AddContactText>You have no contacts, so just add them!</AddContactText>}
+        {filter? filtredList : list}
       </List>
             {modalIsOpened && <Modal closeModal={handleModal} modalIsOpened = {modalIsOpened}>
         <ContactActionForm prevContact={editContact} handleModal={handleModal} />

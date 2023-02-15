@@ -97,3 +97,7 @@ export const FilterInput = styled.input`
 export const AddContactText = styled.h2`
   color: ${props => props.theme.filterColor};
 `;
+
+export const AddLink = styled.span`
+  text-decoration: underline;
+`;

@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { editContact } from "redux/contactsSlice";
 import { Form, UserBox } from "common/formStyles/formStyles";
 import { ContactActionBox, ContactButton, ContactHeader, ContactInput, ContactLabel } from "common/contactFormStyles/contactFormStyles";
+import { toast } from 'react-toastify';
 import PropTypes from 'prop-types';
 
 export const ContactActionForm = ({ prevContact, handleModal }) => {
@@ -45,7 +46,12 @@ export const ContactActionForm = ({ prevContact, handleModal }) => {
     setName('');
     setNumber('');
     handleModal();
+
+    toast.success("Contact edited!", {
+      position: toast.POSITION.TOP_RIGHT
+    });
   };
+
   return (
     <ContactActionBox>
       <ContactHeader>

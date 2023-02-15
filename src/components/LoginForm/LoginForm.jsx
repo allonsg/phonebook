@@ -2,6 +2,7 @@ import { login } from "redux/userSlice";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { AnimatedBorder, Button, Form, FormHeader, Input, Label, LoginBox, LoginIcon, UserBox } from "common/formStyles/formStyles"
+import { toast } from "react-toastify";
 import PropTypes from 'prop-types';
 
 
@@ -45,11 +46,23 @@ export const LoginForm = ({ isLoading }) => {
 
     const handleSubmit = e => {
         e.preventDefault();
-             const formData = {
+        const formData = {
             email,
             password,
         }
-        dispatch(login(formData));
+        dispatch(login(formData)).unwrap()
+            .then(() =>
+                toast.success('You are successfully logged in',
+                    {
+                        position: toast.POSITION.TOP_RIGHT
+                    }
+                ))
+            .catch(() =>
+                toast.error('Something went wrong...Try reloading the page and enter valid email, password',
+                    {
+                        position: toast.POSITION.TOP_RIGHT,
+                    }
+                ))
     };
 
     const validation = isLoading || !emailIsValid || !passwordIsValid;

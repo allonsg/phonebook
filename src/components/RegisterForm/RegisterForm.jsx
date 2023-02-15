@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Form, Label, Button, Input, LoginBox, FormHeader, UserBox, AnimatedBorder, LoginIcon} from "common/formStyles/formStyles";
 import PropTypes from 'prop-types';
+import { toast } from "react-toastify";
 
 export const RegisterForm = ({ isLoading }) => {
     const dispatch = useDispatch();
@@ -54,8 +55,20 @@ export const RegisterForm = ({ isLoading }) => {
             password,
         }
 
-        dispatch(signUp(formData));
-    };
+        dispatch(signUp(formData)).unwrap()
+            .then(() =>
+                toast.success('You are successfully logged in',
+                    {
+                        position: toast.POSITION.TOP_RIGHT
+                    }
+                ))
+            .catch(() =>
+                toast.error('Something went wrong...Try reloading the page and enter valid email',
+                    {
+                        position: toast.POSITION.TOP_RIGHT,
+                    }
+                ));
+    }
 
     const validation = isLoading || !emailIsValid || !passwordIsValid || !name;
 

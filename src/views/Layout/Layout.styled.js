@@ -8,12 +8,13 @@ export const AppWrapper = styled.div`
 
 export const MainBlock = styled.main`
   position: relative;
-  padding: ${props => (props.user ? '0' : '100px')} 20px 0;
   display: flex;
   justify-content: center;
+  height: 80vh;
 
   @media screen and (max-width: 768px) {
     padding-top: 10px;
+    overflow: auto;
   }
 `;
 

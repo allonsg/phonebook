@@ -10,7 +10,7 @@ export const light = {
   bgFilter: '#eaf6f6',
   filterColor: '#5585b5',
   underlineColor: '#5dacbd',
-  //===Users===
+  //===Contacts===
   userIcon: '#5dacbd',
   //===Loader===
   loaderBgMain: '#afc5ff',
@@ -19,9 +19,14 @@ export const light = {
   //===Contact Form===
   contactFormMainColor: '#5dacbd',
   contactFormSecondColor: '#44709c',
+  //===Home Page===
+  hpMainColor: 'black',
+  hpLinkColor: '#5dacbd',
+  //===SVG===
+  svgSize: '23px',
   //===Mobile===
   mobile: {
-    svgSize: '18px',
+    mobilesvgSize: '25px',
     headerFS: '1rem',
     formFS: '12px',
   },
@@ -36,10 +41,10 @@ export const dark = {
   bgMain: '#393348',
   bgForm: '#e3f6f5',
   colorForm: '#000',
-  bgFilter: '#554b6a',
+  bgFilter: '#5585b5',
   filterColor: '#cccccc',
   underlineColor: '#9188AA',
-  //===Users===
+  //===Contacts===
   userIcon: '#423B54',
   //===Loader===
   loaderBgMain: '#9a79ff',
@@ -48,9 +53,14 @@ export const dark = {
   //===Contact Form===
   contactFormMainColor: '#5585b5',
   contactFormSecondColor: '#44709c',
+  //===Home Page===
+  hpMainColor: 'white',
+  hpLinkColor: '#5585b5',
+  //===SVG===
+  svgSize: '20px',
   //===Mobile===
   mobile: {
-    svgSize: '18px',
+    mobilesvgSize: '25px',
     headerFS: '1rem',
     formFS: '12px',
   },
