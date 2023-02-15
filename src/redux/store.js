@@ -12,7 +12,7 @@ import {
 } from 'redux-persist';
 import { contactsSlice } from './contactsSlice';
 import { userSlice } from './userSlice';
-import { themeReducer } from './themeSlice';
+import { themeSlice } from './themeSlice';
 
 const middleware = [
   ...getDefaultMiddleware({
@@ -28,11 +28,17 @@ const userPersistConfig = {
   whitelist: ['token'],
 };
 
+const themePersistConfig = {
+  key: 'theme',
+  storage,
+  whitelist: ['changeMode'],
+};
+
 export const store = configureStore({
   reducer: {
     contacts: contactsSlice.reducer,
     user: persistReducer(userPersistConfig, userSlice.reducer),
-    theme: themeReducer,
+    theme: persistReducer(themePersistConfig, themeSlice.reducer),
   },
   middleware,
 });

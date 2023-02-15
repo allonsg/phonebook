@@ -59,12 +59,11 @@ export const Form = styled.form`
 
 export const Label = styled.label`
   position: absolute;
-  top: ${props => (props.emailText || props.passText ? '-20px' : '0')};
+  top: ${props => (props.text ? '-20px' : '0')};
   left: 0;
   padding: 10px 0;
-  font-size: ${props => (props.emailText || props.passText ? '12px' : '16px')};
-  color: ${props =>
-    props.emailText || props.passText ? '#bdb8b8' : props.theme.colorForm};
+  font-size: ${props => (props.text ? '12px' : '16px')};
+  color: ${props => (props.text ? '#bdb8b8' : props.theme.colorForm)};
   pointer-events: none;
   transition: 0.5s;
 

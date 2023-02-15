@@ -62,11 +62,11 @@ export const LoginForm = ({ isLoading }) => {
         <Form onSubmit={handleSubmit} autoComplete='off'>
             <UserBox>
                     <Input type="email" name='email' value={email} onChange={handleChange} required={true}/>
-                <Label emailText={!!email}>Email</Label>
+                <Label text={!!email}>Email</Label>
             </UserBox>
             <UserBox>
                     <Input type="password" name='password' value={password} title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" onChange={handleChange} min={8} max={21} required={true}/>
-                <Label passText={!!password}>Password</Label>
+                <Label text={!!password}>Password</Label>
             </UserBox>
                 <Button type="submit" disabled={validation}>LogIn<AnimatedBorder disabled ={validation}></AnimatedBorder></Button>
             </Form>

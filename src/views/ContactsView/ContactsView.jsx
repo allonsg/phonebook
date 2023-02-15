@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setFilter, getFilter, fetchContacts } from 'redux/contactsSlice';
-import { Phonebook } from 'components/Phonebook/Phonebook';
 import { Contacts } from 'components/Contacts/Contacts';
 import { Container } from './ContactView.styled';
 import { getUser } from 'redux/userSlice';
@@ -28,7 +27,6 @@ const ContactsView = () => {
       </Helmet>
     <Container>
       {!!user ? <>
-        {/* <Phonebook /> */}
       <Contacts
         onFilterSearch={onFilterSearch}
         filter={filter}

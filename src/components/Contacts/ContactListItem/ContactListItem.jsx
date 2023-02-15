@@ -1,21 +1,67 @@
-import { Button } from "components/components.styled";
-import { ContactItem } from "./ContactListItem.styled";
+import {
+    ActionButton,
+    BottomPart,
+    Card,
+    CardBottomPart,
+    CardTopPart,
+    ContactInfo,
+    ContactName,
+    ContactPhone,
+    EditIcon,
+    Icon,
+    LeftPart,
+    Name,
+    RightPart,
+    TrashIcon,
+    UserBlock,
+    UserIcon,
+} from "./ContactListItem.styled";
 import PropTypes from 'prop-types';
 
 
 export const ContactListItem = ({ name, number, onDelete, id, onEdit }) => {
     return (
-        <ContactItem>
-            {name}: {number}
-            <Button type="button" onClick={() => onDelete(id)}>
-                Delete
-            </Button>
-            <Button type="button" onClick={() => onEdit({ name, number, id })}>
-                Edit
-            </Button>
-        </ContactItem>
+        <Card>
+            <CardTopPart>
+                <LeftPart>
+                    <ContactName>
+                        <Name>{name}</Name>
+                    </ContactName>
+                    <ContactInfo>
+                        <ContactPhone>
+                            {number}
+                        </ContactPhone>
+                    </ContactInfo>
+                </LeftPart>
+                <RightPart>
+                    <UserBlock>
+                        <UserIcon />
+                    </UserBlock>
+                </RightPart>
+            </CardTopPart>
+            <CardBottomPart>
+                <BottomPart onClick={() => onEdit({ name, number, id })}>
+                    <ActionButton >
+                        <Icon>
+                            <EditIcon/>
+                        </Icon>
+                        Edit
+                    </ActionButton>
+                </BottomPart>
+                <BottomPart onClick={() => onDelete(id)}>
+                    <ActionButton >
+                        <Icon>
+                            <TrashIcon/>
+                        </Icon>
+                        Delete
+                    </ActionButton>
+                </BottomPart>
+            </CardBottomPart>
+        </Card>
     );
-};
+}
+
+
 
 ContactListItem.propTypes = {
     name: PropTypes.string.isRequired,

@@ -1,4 +1,4 @@
-import { lazy, useEffect } from "react";
+import { lazy, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { getAuth } from "redux/userSlice";
@@ -11,7 +11,7 @@ import { ThemeProvider } from 'styled-components';
 import * as themeObj from 'theme';
 import { getTheme } from "redux/themeSlice";
 // import { useMediaQuery } from "react-responsive";
-
+import localTheme from "common/localTheme";
 
 const LazyRegisterView = lazy(() => import('views/RegisterView/RegisterView'));
 const LazyLoginView = lazy(() => import('views/LoginView/LoginView'));
@@ -25,12 +25,22 @@ export const App = () => {
   // const isAfterDescScreen = useMediaQuery({ query: '(min-width: 1280px)' });
   const dispatch = useDispatch();
   const changeTheme = useSelector(getTheme);
+  const [theme, setTheme] = useState(themeObj.light);
+
   useEffect(() => {
     if (!token) return;
     dispatch(getAuth());
+    
+    if (localTheme) {
+  setTheme(localTheme.changeMode === 'true'? themeObj.dark : themeObj.light);
+}
   }, [dispatch]);
 
-  const theme = changeTheme ? themeObj.dark : themeObj.light;
+  useEffect(() => {
+  setTheme(changeTheme ? themeObj.dark : themeObj.light);
+}, [changeTheme])
+
+  
 
   return (
     <>

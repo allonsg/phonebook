@@ -3,6 +3,13 @@ import styled from 'styled-components';
 export const List = styled.ul`
   padding: 0;
   margin: 0;
+  list-style: none;
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 70%;
+  justify-content: center;
 `;
 
 export const FiltertInputWrapper = styled.div`
@@ -19,8 +26,8 @@ export const FiltertInputWrapper = styled.div`
     transform: scaleX(0);
     transition: transform 250ms cubic-bezier(0, 0, 0.2, 1) 0ms;
     will-change: transform;
-    border-bottom: 2px solid #a3e583;
-    border-bottom-color: #a3e583;
+    border-bottom: 2px solid ${props => props.theme.underlineColor};
+    border-bottom-color: ${props => props.theme.underlineColor};
   }
 
   &:before,
@@ -31,7 +38,6 @@ export const FiltertInputWrapper = styled.div`
     position: absolute;
     pointer-events: none;
     bottom: 0px;
-    z-index: 4;
     width: 99.3%;
     border-bottom: 1px solid ${props => props.theme.bgFilter};
   }
@@ -47,8 +53,8 @@ export const FiltertInputWrapper = styled.div`
   }
 
   :focus-within input {
-    background-color: ${props => props.theme.bgFilterActive};
-    color: ${props => props.theme.filterColorActive};
+    background-color: ${props => props.theme.bgFilter};
+    color: ${props => props.theme.filterColor};
   }
 
   :focus-within input::placeholder {
@@ -86,4 +92,8 @@ export const FilterInput = styled.input`
     font-size: 1.2rem;
     line-height: 1.2;
   }
+`;
+
+export const AddContactText = styled.h2`
+  color: ${props => props.theme.filterColor};
 `;
