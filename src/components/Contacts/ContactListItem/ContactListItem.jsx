@@ -20,6 +20,7 @@ import PropTypes from 'prop-types';
 
 
 export const ContactListItem = ({ name, number, onDelete, id, onEdit }) => {
+    const tel = `tel:${number}`;
     return (
         <Card>
             <CardTopPart>
@@ -28,7 +29,7 @@ export const ContactListItem = ({ name, number, onDelete, id, onEdit }) => {
                         <Name>{name}</Name>
                     </ContactName>
                     <ContactInfo>
-                        <ContactPhone>
+                        <ContactPhone href={tel}>
                             {number}
                         </ContactPhone>
                     </ContactInfo>

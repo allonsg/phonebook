@@ -43,9 +43,10 @@ export const Name = styled.p`
 
 export const ContactInfo = styled.div``;
 
-export const ContactPhone = styled.p`
+export const ContactPhone = styled.a`
   color: grey;
   margin: 0;
+  text-decoration: none;
 `;
 
 export const RightPart = styled.div`
