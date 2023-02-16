@@ -57,7 +57,7 @@ export const dark = {
   hpMainColor: 'white',
   hpLinkColor: '#5585b5',
   //===SVG===
-  svgSize: '20px',
+  svgSize: '23px',
   //===Mobile===
   mobile: {
     mobilesvgSize: '25px',
